@@ -12,8 +12,12 @@ class Settings
     /** @var  string path to .env file */
     private $path = __DIR__ . '/../../';
 
-    public function __construct()
+    public function __construct($path = null)
     {
+        if (null !== $path) {
+            $this->path = $path;
+        }
+
         if(!file_exists($this->path) || empty($this->path)) {
             throw new PushException('.env path is not set correctly, file:' . $this->path);
         }

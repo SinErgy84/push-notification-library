@@ -6,16 +6,17 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use PushNotification\Device\DeviceFactory;
 use PushNotification\Device\DeviceInterface;
+use PushNotification\Exceptions\PushException;
+use PushNotification\Exceptions\SettingsException;
 use PushNotification\Message\BasicMessageAbstract;
 use PushNotification\Message\MessageFactory;
-use PushNotification\Exceptions\PushException;
 use PushNotification\Settings;
 
 
 class PushService
 {
     /** @var null class instance */
-    private static $instance = null;
+    private static $instance;
 
     /** @var Client */
     private $httpClient;
@@ -27,19 +28,30 @@ class PushService
     {
         $this->httpClient = new Client();
 
-        $setting = new Settings();
+        if (false === getenv('APNS_URL') || false === getenv('FCM_URL')) {
+            throw new SettingsException(sprintf('Initialize % first before using the instance', Settings::class));
+        }
+
     }
 
+    /**
+     * @return PushService
+     */
     public static function getInstance()
     {
-        if (is_null(self::$instance)) {
-            self::$instance = new PushService;
+        if (null === self::$instance) {
+            self::$instance = new self;
         }
 
         return self::$instance;
     }
 
-    public function send($data)
+    /**
+     * @param array $data
+     *
+     * @return string
+     */
+    public function send(array $data)
     {
         try {
             $this->_send($data);
@@ -54,7 +66,7 @@ class PushService
      */
     private function _send($data)
     {
-        if (empty($data) || null == $data) {
+        if (empty($data) || null === $data) {
             throw new PushException('data is not valid');
         }
 
@@ -68,9 +80,12 @@ class PushService
 
     /**
      * send message to google device
+     *
      * @param $message BasicMessageAbstract
-     * @param $device DeviceInterface
-     * @return array|\Guzzle\Http\Message\Response|null
+     * @param $device  DeviceInterface
+     *
+     * @return \Psr\Http\Message\StreamInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function google($message, $device)
     {
@@ -94,8 +109,10 @@ class PushService
 
     /**
      * send message to apple device
-     * @param $message
-     * @param $device
+     *
+     * @param $message BasicMessageAbstract
+     * @param $device  DeviceInterface
+     *
      * @return bool|string
      */
     private function apple($message, $device)

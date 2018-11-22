@@ -11,7 +11,7 @@ Standalone PHP library for easy devices message notifications push.
 Installation
 -------------
 
-    composer require push-notification/push-notification-php-library
+    composer require sinergy84/push-notification-php-library
     composer dump-autoload -o 
 
 
@@ -32,8 +32,8 @@ This repository uses PSR-0 autoload. After installation with composer please adj
 (make sure you renamed the .env.example to .env and filled all the requirements)
 
 
-2. path to .env file :
-you need to set **$path** variable at ```src/PushNotification/Setting``` to the .env file
+2. path to .env file (optional):
+set custom **$path** parameter in ```src/PushNotification/Setting::__construct($path = NULL)``` to the .env file if it's not in the root dir of this library
 
 
 ### How to use : 
@@ -41,6 +41,7 @@ you need to set **$path** variable at ```src/PushNotification/Setting``` to the 
 include_once "vendor/autoload.php";
 
 use PushNotification\Service\PushService;
+use PushNotification\Settings;
 
 $data = array(
     'device' => array(
@@ -57,6 +58,8 @@ $data = array(
         'data' => array('type' => 'testType'))
 );
 
+// new Settings('path_to_env_file_if_not_library_root_dir');
+new Settings();
 $response  = PushService::getInstance()->send($data);
 
 ```
@@ -81,6 +84,9 @@ $data = array(
         'type' => 'AndroidMessages',  
         'data' => array('type' => 'testType'))
 );
+
+// new Settings('path_to_env_file_if_not_library_root_dir');
+new Settings();
 $response  = PushService::getInstance()->send($data);
 print_r($response);
 
@@ -107,6 +113,9 @@ $data = array(
         'type' => 'IOSMessages', 
         'data' => array('type' => 'testType'))
 );
+
+// new Settings('path_to_env_file_if_not_library_root_dir');
+new Settings();
 $response  = PushService::getInstance()->send($data);
 print_r($response);
 

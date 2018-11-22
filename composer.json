@@ -1,5 +1,5 @@
 {
-    "name": "push-notification/push-notification-php-library",
+    "name": "sinergy84/push-notification-php-library",
     "description": "Send push notification to android|ios devices , support APNs, FCM",
     "keywords": [
         "apple",
@@ -16,7 +16,8 @@
     "require": {
         "php": ">=5.6",
         "guzzlehttp/guzzle": "^6.3",
-        "vlucas/phpdotenv":"^2.4.0"
+        "vlucas/phpdotenv":"^2.4.0",
+        "ext-json": "*"
     },
     "license": "MIT",
     "authors": [
