@@ -6,7 +6,7 @@
  * Time: 10:43 AM
  */
 
-namespace Ibartar\PushNotification\Exceptions;
+namespace PushNotification\Exceptions;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {
