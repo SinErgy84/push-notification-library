@@ -6,7 +6,7 @@
  * Time: 12:20 PM
  */
 
-namespace PushNotification\Message;
+namespace PushNotification\Message\Factory;
 
 
 interface FactoryInterface

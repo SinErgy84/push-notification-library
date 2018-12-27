@@ -1,6 +1,6 @@
 <?php
 
-namespace PushNotification\Message;
+namespace PushNotification\Message\Factory;
 
 use PushNotification\Exceptions\MessageException;
 use PushNotification\Exceptions\PushException;
@@ -31,7 +31,7 @@ class MessageFactory implements FactoryInterface
      */
     public static function getInstance()
     {
-        if (is_null(self::$instance)) {
+        if (NULL === self::$instance) {
             self::$instance = new MessageFactory();
         }
 

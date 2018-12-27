@@ -9,7 +9,7 @@ use PushNotification\Device\DeviceInterface;
 use PushNotification\Exceptions\PushException;
 use PushNotification\Exceptions\SettingsException;
 use PushNotification\Message\BasicMessageAbstract;
-use PushNotification\Message\MessageFactory;
+use PushNotification\Message\Factory\MessageFactory;
 use PushNotification\Settings;
 
 
