@@ -4,6 +4,7 @@ namespace PushNotification\Message\Factory;
 
 use PushNotification\Exceptions\MessageException;
 use PushNotification\Exceptions\PushException;
+use PushNotification\Message\Config\MessageConfig;
 
 class MessageFactory implements FactoryInterface
 {

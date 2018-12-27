@@ -1,6 +1,6 @@
 <?php
 
-namespace PushNotification\Message;
+namespace PushNotification\Message\Config;
 
 
 interface MessageConfig
