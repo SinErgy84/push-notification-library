@@ -5,6 +5,7 @@ namespace PushNotification\Message\Factory;
 use PushNotification\Exceptions\MessageException;
 use PushNotification\Exceptions\PushException;
 use PushNotification\Message\Config\MessageConfig;
+use PushNotification\Message\Strategy\IOSMessages;
 
 class MessageFactory implements FactoryInterface
 {
@@ -85,11 +86,26 @@ class MessageFactory implements FactoryInterface
         $this->message = MessageConfig::MESSAGE_NAMESPACE . $this->message;
         $object = new $this->message();
 
-        return $object->setAction($this->data['action'])
+        $object->setAction($this->data['action'])
             ->setTargets($this->data['targets'])
             ->setTitle($this->data['title'])
             ->setBody($this->data['body'])
             ->setData($this->data['data']);
+
+        if ($object instanceof IOSMessages)
+        {
+            if (TRUE === isset($this->data['loc-key']) && '' !== $this->data['loc-key'])
+            {
+                $object->setLocKey($this->data['loc-key']);
+            }
+
+            if (TRUE === isset($this->data['loc-args']) && TRUE === is_array($this->data['loc-args']) && FALSE === empty($this->data['loc-args']))
+            {
+                $object->setLocArgs($this->data['loc-args']);
+            }
+        }
+
+        return $object;
     }
 
 }

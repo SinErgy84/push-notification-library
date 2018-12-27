@@ -25,11 +25,17 @@ class IOSMessages extends BasicMessageAbstract implements AppleMessageInterface
     /** @var */
     private $id;
 
-    /** @var  string */
+    /** @var string */
     private $token;
 
-    /** @var */
+    /** @var int */
     private $expire = 100;
+
+    /** @var string */
+    private $loc_key;
+
+    /** @var array */
+    private $loc_args;
 
     public function __construct()
     {
@@ -63,14 +69,26 @@ class IOSMessages extends BasicMessageAbstract implements AppleMessageInterface
      */
     public function aps()
     {
+        $alert_content = array(
+            'title' => $this->title,
+            'body'  => $this->body,
+        );
+
+        if (NULL !== $this->loc_key)
+        {
+            $alert_content['loc-key'] = $this->loc_key;
+        }
+
+        if (TRUE === is_array($this->loc_args) && FALSE === empty($this->loc_args))
+        {
+            $alert_content['loc-args'] = $this->loc_args;
+        }
+
         return array(
-            'alert' => array(
-                'title' => $this->title,
-                'body' => $this->body
-            ),
+            'alert'             => $alert_content,
             'content-available' => 1,
-            'badge' => $this->getBadge(),
-            'sound' => $this->getSound()
+            'badge'             => $this->getBadge(),
+            'sound'             => $this->getSound(),
         );
 
     }
@@ -107,21 +125,53 @@ class IOSMessages extends BasicMessageAbstract implements AppleMessageInterface
 
     /**
      * set the unique id for message
+     *
      * @param $id
-     * @return mixed
+     *
+     * @return IOSMessages
      */
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
      * set the token for message
-     * @param $token
-     * @return mixed
+     *
+     * @param string $token
+     *
+     * @return IOSMessages
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @param string $loc_key
+     *
+     * @return IOSMessages
+     */
+    public function setLocKey($loc_key)
+    {
+        $this->loc_key = $loc_key;
+
+        return $this;
+    }
+
+    /**
+     * @param array $loc_args
+     *
+     * @return IOSMessages
+     */
+    public function setLocArgs(array $loc_args)
+    {
+        $this->loc_args = $loc_args;
+
+        return $this;
     }
 }
