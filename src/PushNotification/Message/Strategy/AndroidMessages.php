@@ -4,14 +4,14 @@
 namespace PushNotification\Message\Strategy;
 
 use PushNotification\Message\BasicMessageAbstract;
-use PushNotification\Message\GoogleMessage;
+use PushNotification\Message\GoogleMessageInterface;
 use PushNotification\Message\Config\Provider;
 
 /**
  * Class AndroidMessages
  * @package PushNotification\Message\Strategy
  */
-class AndroidMessages extends BasicMessageAbstract implements GoogleMessage
+class AndroidMessages extends BasicMessageAbstract implements GoogleMessageInterface
 {
 
     public function __construct()

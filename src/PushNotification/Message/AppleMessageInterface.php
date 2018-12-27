@@ -3,7 +3,7 @@
 namespace PushNotification\Message;
 
 
-interface AppleMessage
+interface AppleMessageInterface
 {
     /**
      * generate aps message block for apns

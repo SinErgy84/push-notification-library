@@ -3,7 +3,7 @@
 
 namespace PushNotification\Message\Strategy;
 
-use PushNotification\Message\AppleMessage;
+use PushNotification\Message\AppleMessageInterface;
 use PushNotification\Message\BasicMessageAbstract;
 use PushNotification\Message\Config\Provider;
 
@@ -11,7 +11,7 @@ use PushNotification\Message\Config\Provider;
  * Class IOSMessages
  * @package PushNotification\Message\Strategy
  */
-class IOSMessages extends BasicMessageAbstract implements AppleMessage
+class IOSMessages extends BasicMessageAbstract implements AppleMessageInterface
 {
 
     use Provider;

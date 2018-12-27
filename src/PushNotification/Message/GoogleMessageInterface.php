@@ -2,7 +2,7 @@
 
 namespace PushNotification\Message;
 
-interface GoogleMessage
+interface GoogleMessageInterface
 {
     /**
      * generate message notification block for fcm
