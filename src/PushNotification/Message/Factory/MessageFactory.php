@@ -95,7 +95,7 @@ class MessageFactory implements FactoryInterface
 
         if(TRUE === isset($this->data[AndroidMessages::MESSAGE_TYPE]))
         {
-            $this->setMessageType($this->data[AndroidMessages::MESSAGE_TYPE]);
+            $object->setMessageType($this->data[AndroidMessages::MESSAGE_TYPE]);
         }
 
         if ($object instanceof IOSMessages)
