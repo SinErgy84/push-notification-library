@@ -5,6 +5,7 @@ namespace PushNotification\Message\Factory;
 use PushNotification\Exceptions\MessageException;
 use PushNotification\Exceptions\PushException;
 use PushNotification\Message\Config\MessageConfig;
+use PushNotification\Message\Strategy\AndroidMessages;
 use PushNotification\Message\Strategy\IOSMessages;
 
 class MessageFactory implements FactoryInterface
@@ -91,6 +92,11 @@ class MessageFactory implements FactoryInterface
             ->setTitle($this->data['title'])
             ->setBody($this->data['body'])
             ->setData($this->data['data']);
+
+        if(TRUE === isset($this->data[AndroidMessages::MESSAGE_TYPE]))
+        {
+            $this->setMessageType($this->data[AndroidMessages::MESSAGE_TYPE]);
+        }
 
         if ($object instanceof IOSMessages)
         {

@@ -26,6 +26,8 @@ abstract class BasicMessageAbstract
     /** @var  string related action like : events, coins,... */
     private $action;
 
+    private $message_type;
+
     /**
      * @return string
      */
@@ -92,6 +94,25 @@ abstract class BasicMessageAbstract
     {
         $this->body = $body;
         return $this;
+    }
+
+    /**
+     * @param $message_type
+     *
+     * @return BasicMessageAbstract
+     */
+    public function setMessageType($message_type)
+    {
+        $this->message_type = $message_type;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMessageType()
+    {
+        return $this->message_type;
     }
 
     /**
